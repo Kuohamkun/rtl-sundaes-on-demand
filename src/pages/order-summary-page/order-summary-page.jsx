@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "components/ui/card";
-import styles from "./order-summary-page.module.css";
 import SummaryForm from "./components/summary-form/summary-form";
 
 export default function OrderSummaryPage() {
