@@ -37,7 +37,10 @@ export default function Scoops() {
       ) : (
         <>
           <div className="scroll-m-20 text-xl font-semibold tracking-tight my-4">
-            Scoops total: <Badge className="text-xl">{totalPrice}$</Badge>
+            Scoops total:{" "}
+            <Badge data-testid="scoops-total" className="text-xl">
+              {totalPrice}$
+            </Badge>
           </div>
 
           <div className="flex justify-between gap-4">
