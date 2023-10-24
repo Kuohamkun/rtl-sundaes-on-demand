@@ -41,9 +41,11 @@ export default function ScoopOption({ scoop, onCountChange }) {
               onCountChange(SCOOP_PRICE);
             }}
           >
-            <Plus className="h-4 w-4" />
+            <Plus title={"plus"} className="h-4 w-4" />
           </Button>
-          <span className="font-semibold mx-4">{count}</span>
+          <span data-testid="scoops-count" className="font-semibold mx-4">
+            {count}
+          </span>
           <Button
             variant="outline"
             size="icon-sm"
@@ -53,7 +55,7 @@ export default function ScoopOption({ scoop, onCountChange }) {
             }}
             disabled={count === 0}
           >
-            <Minus className="h-4 w-4" />
+            <Minus title={"minus"} className="h-4 w-4" />
           </Button>
         </div>
       </CardFooter>

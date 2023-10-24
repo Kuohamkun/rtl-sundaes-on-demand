@@ -1,4 +1,7 @@
 {
   "plugins": ["jest-dom"],
-  "extends": ["react-app", "react-app/jest", "plugin:jest-dom/recommended"]
+  "extends": ["react-app", "react-app/jest", "plugin:jest-dom/recommended"],
+  "rules": {
+    "testing-library/no-node-access": "warn"
+  }
 }
