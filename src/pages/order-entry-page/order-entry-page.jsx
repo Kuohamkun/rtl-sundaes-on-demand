@@ -1,5 +1,6 @@
 import React from "react";
 import Scoops from "./components/scoops/scoops";
+import Toppings from "./components/toppings/toppings";
 
 export default function OrderEntryPage() {
   return (
@@ -8,6 +9,7 @@ export default function OrderEntryPage() {
         Design Your Sundae
       </h1>
       <Scoops />
+      <Toppings />
     </div>
   );
 }

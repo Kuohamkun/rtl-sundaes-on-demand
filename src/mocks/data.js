@@ -8,3 +8,14 @@ export const scoops = [
     imagePath: "/images/chocolate.png",
   },
 ];
+
+export const toppings = [
+  {
+    name: "M&Ms",
+    imagePath: "/images/m-and-ms.png",
+  },
+  {
+    name: "Hot fudge",
+    imagePath: "/images/hot-fudge.png",
+  },
+];

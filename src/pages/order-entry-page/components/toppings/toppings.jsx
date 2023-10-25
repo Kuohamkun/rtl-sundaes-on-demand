@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from "react";
+import ToppingOption from "../topping-option/topping-option";
 import { Badge } from "components/ui/badge";
 import { Alert, AlertDescription, AlertTitle } from "components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { API_URL } from "lib/constants";
-import ScoopOption from "../scoop-option/scoop-option";
 import { useOrderDetails } from "contexts/order-details/use-order-details";
 import { formatCurrency } from "lib/utils";
 
-export default function Scoops() {
-  const [scoops, setScoops] = useState(null);
+export default function Toppings() {
+  const [toppings, setToppings] = useState(null);
   const [error, setError] = useState(null);
   const { getPrice } = useOrderDetails();
-  const { scoops: scoopsTotal } = getPrice();
+  const { toppings: toppingsTotal } = getPrice();
 
   useEffect(() => {
-    fetch(`${API_URL}/scoops`)
+    fetch(`${API_URL}/toppings`)
       .then((response) => response.json())
-      .then((scoopsData) => setScoops(scoopsData))
+      .then((scoopsData) => setToppings(scoopsData))
       .catch(setError);
   }, []);
 
   return (
-    <section>
+    <section className="mt-10">
       <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-        Scoops
+        Toppings
       </h2>
       {error ? (
         <Alert className="my-4" variant="destructive">
@@ -36,15 +36,15 @@ export default function Scoops() {
       ) : (
         <>
           <div className="scroll-m-20 text-xl font-semibold tracking-tight my-4">
-            Scoops total:{" "}
-            <Badge data-testid="scoops-total" className="text-xl">
-              {formatCurrency(scoopsTotal)}
+            Toppings total:{" "}
+            <Badge data-testid="toppings-total" className="text-xl">
+              {formatCurrency(toppingsTotal)}
             </Badge>
           </div>
 
           <div className="grid grid-cols-4 gap-4">
-            {scoops?.map((scoop, index) => (
-              <ScoopOption key={index} scoop={scoop} />
+            {toppings?.map((topping, index) => (
+              <ToppingOption key={index} topping={topping} />
             ))}
           </div>
         </>
