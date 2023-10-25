@@ -4,11 +4,14 @@ import { Alert, AlertDescription, AlertTitle } from "components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import { API_URL } from "lib/constants";
 import ScoopOption from "../scoop-option/scoop-option";
+import { useOrderDetails } from "contexts/order-details/use-order-details";
+import { formatCurrency } from "lib/utils";
 
 export default function Scoops() {
   const [scoops, setScoops] = useState(null);
-  const [totalPrice, setTotalPrice] = useState(0);
   const [error, setError] = useState(null);
+  const { getPrice } = useOrderDetails();
+  const { scoops: scoopsTotal } = getPrice();
 
   useEffect(() => {
     fetch(`${API_URL}/scoops`)
@@ -16,10 +19,6 @@ export default function Scoops() {
       .then((scoopsData) => setScoops(scoopsData))
       .catch(setError);
   }, []);
-
-  const handleTotalPrice = (amount) => {
-    setTotalPrice((prevTotal) => prevTotal + amount);
-  };
 
   return (
     <section>
@@ -39,17 +38,13 @@ export default function Scoops() {
           <div className="scroll-m-20 text-xl font-semibold tracking-tight my-4">
             Scoops total:{" "}
             <Badge data-testid="scoops-total" className="text-xl">
-              {totalPrice}$
+              {formatCurrency(scoopsTotal)}
             </Badge>
           </div>
 
           <div className="flex justify-between gap-4">
             {scoops?.map((scoop, index) => (
-              <ScoopOption
-                key={index}
-                scoop={scoop}
-                onCountChange={handleTotalPrice}
-              />
+              <ScoopOption key={index} scoop={scoop} />
             ))}
           </div>
         </>

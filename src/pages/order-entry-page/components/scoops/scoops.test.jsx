@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "lib/testing-utils";
 import userEvent from "@testing-library/user-event";
 import Scoops from "./scoops";
 import { scoops } from "mocks/data";
@@ -41,7 +41,7 @@ test("scoops total price is updated with correct amount", async () => {
   }
 
   // remove scoops and verify total
-  const total = +scoopsTotal.textContent[0];
+  const total = +scoopsTotal.textContent.substring(1);
   const minusIcons = await screen.findAllByTitle("minus");
 
   for (const [index, minusIcon] of minusIcons.entries()) {

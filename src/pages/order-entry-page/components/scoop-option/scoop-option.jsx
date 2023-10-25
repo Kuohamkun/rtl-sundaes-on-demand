@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -10,15 +10,22 @@ import { Badge } from "components/ui/badge";
 import { Button } from "components/ui/button";
 import { Plus, Minus } from "lucide-react";
 import { API_URL, SCOOP_PRICE } from "lib/constants";
+import { useOrderDetails } from "contexts/order-details/use-order-details";
+import { formatCurrency } from "lib/utils";
 
-export default function ScoopOption({ scoop, onCountChange }) {
+export default function ScoopOption({ scoop }) {
   const [count, setCount] = useState(0);
+  const { updateScoopOrder } = useOrderDetails();
+
+  useEffect(() => {
+    updateScoopOrder(scoop.name, count);
+  }, [count]);
 
   return (
     <Card className="text-center w-full">
       <CardHeader>
         <Badge variant="secondary" className="w-fit" size="sm">
-          {SCOOP_PRICE}$
+          {formatCurrency(SCOOP_PRICE)}
         </Badge>
         <CardTitle>{scoop.name}</CardTitle>
       </CardHeader>
@@ -36,10 +43,7 @@ export default function ScoopOption({ scoop, onCountChange }) {
           <Button
             variant="outline"
             size="icon-sm"
-            onClick={() => {
-              setCount((prevCount) => prevCount + 1);
-              onCountChange(SCOOP_PRICE);
-            }}
+            onClick={() => setCount((prevCount) => prevCount + 1)}
           >
             <Plus title={"plus"} className="h-4 w-4" />
           </Button>
@@ -49,10 +53,7 @@ export default function ScoopOption({ scoop, onCountChange }) {
           <Button
             variant="outline"
             size="icon-sm"
-            onClick={() => {
-              setCount((prevCount) => prevCount - 1);
-              onCountChange(-SCOOP_PRICE);
-            }}
+            onClick={() => setCount((prevCount) => prevCount - 1)}
             disabled={count === 0}
           >
             <Minus title={"minus"} className="h-4 w-4" />
