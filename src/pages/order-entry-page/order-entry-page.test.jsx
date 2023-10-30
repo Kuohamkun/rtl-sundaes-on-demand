@@ -55,3 +55,29 @@ test("check if order button is disabled when nothing is selected", async () => {
   await user.click(plusIcons[0]);
   expect(orderButton).toBeEnabled();
 });
+
+test("check if order button is disabled when no scoop is ordered", async () => {
+  const user = userEvent.setup();
+  render(<OrderEntryPage />);
+
+  // initial state
+  const orderButton = screen.getByRole("button", {
+    name: /order your sundae/i,
+  });
+  expect(orderButton).toBeDisabled();
+
+  // order toppings and expect order button to be disabled
+  const checkboxes = await screen.findAllByRole("checkbox");
+  await user.click(checkboxes[0]);
+  expect(orderButton).toBeDisabled();
+
+  // order scoops and expect order button to be enabled
+  const plusIcons = await screen.findAllByTitle("plus");
+  await user.click(plusIcons[0]);
+  expect(orderButton).toBeEnabled();
+
+  // cancel scoop order and expect order button to be disabled
+  const minusIcons = await screen.findAllByTitle("minus");
+  await user.click(minusIcons[0]);
+  expect(orderButton).toBeDisabled();
+});

@@ -9,7 +9,7 @@ import { OrderPhase } from "lib/constants";
 
 export default function OrderEntryPage() {
   const { getPrice, setOrderPhase } = useOrderDetails();
-  const { total: grandTotal } = getPrice();
+  const { total: grandTotal, scoops: scoopsTotal } = getPrice();
 
   return (
     <div className="container px-20 py-10">
@@ -25,7 +25,7 @@ export default function OrderEntryPage() {
       <Button
         size="lg"
         className="my-4"
-        disabled={grandTotal === 0}
+        disabled={scoopsTotal === 0}
         onClick={() => setOrderPhase(OrderPhase.SUMMARY)}
       >
         <ChevronRight className="mr-2 h-7 w-7" /> Order Your Sundae
