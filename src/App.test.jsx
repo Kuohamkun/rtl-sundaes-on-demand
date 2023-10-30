@@ -82,3 +82,20 @@ test("check order phases (happy path)", async () => {
   const grandTotal = grandTotalMatch.length ? +grandTotalMatch[0] : null;
   expect(grandTotal).toBe(0);
 });
+
+test("toppings summary should not appear if there is no toppings order", async () => {
+  const user = userEvent.setup();
+  render(<App />);
+
+  // Entry Phase: order scoops without toppings and go to next phase
+  const plusIcons = await screen.findAllByTitle("plus");
+  await user.click(plusIcons[0].parentElement);
+
+  const orderButton = screen.getByRole("button", {
+    name: /order your sundae/i,
+  });
+  await user.click(orderButton);
+
+  // Summary Phase: check toppings section is not in document
+  expect(screen.queryByText(/^toppings/i)).not.toBeInTheDocument();
+});

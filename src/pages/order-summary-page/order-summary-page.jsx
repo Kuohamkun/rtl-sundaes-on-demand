@@ -59,17 +59,19 @@ export default function OrderSummaryPage() {
             </ul>
           </div>
 
-          <div className="my-10">
-            <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-              Toppings{" "}
-              <span className="text-cyan-500">
-                {formatCurrency(toppingsPrice)}
-              </span>
-            </h4>
-            <ul className="my-4 ml-11 list-disc [&>li]:mt-2">
-              {renderToppingsItems()}
-            </ul>
-          </div>
+          {!!toppingsPrice && (
+            <div className="my-10">
+              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                Toppings{" "}
+                <span className="text-cyan-500">
+                  {formatCurrency(toppingsPrice)}
+                </span>
+              </h4>
+              <ul className="my-4 ml-11 list-disc [&>li]:mt-2">
+                {renderToppingsItems()}
+              </ul>
+            </div>
+          )}
 
           <h4 className="scroll-m-20 text-2xl font-bold tracking-tight">
             Total <span className="text-cyan-500">{formatCurrency(total)}</span>
