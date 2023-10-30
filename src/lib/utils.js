@@ -11,3 +11,7 @@ export const formatCurrency = (currency) =>
     currency: "USD",
     minimumFractionDigits: 2,
   }).format(currency);
+
+export const sleep = (ms) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};

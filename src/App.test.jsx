@@ -43,9 +43,14 @@ test("check order phases (happy path)", async () => {
   await user.click(orderConfirmationButton);
 
   // Confirmation Phase : Verify generated order number and go back to entry phase
+  expect(screen.getByTitle("loader")).toBeInTheDocument();
+
   const orderNumberHeading = await screen.findByRole("heading", {
     name: /^your order number is/i,
   });
+
+  expect(screen.queryByTitle("loader")).not.toBeInTheDocument();
+
   const orderNumberMatch = orderNumberHeading.textContent.match(/\d+$/i);
   const orderNumber = orderNumberMatch.length ? orderNumberMatch[0] : null;
   expect(orderNumber).toBe(orderNumberResp.orderNumber.toString());

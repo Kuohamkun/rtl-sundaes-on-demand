@@ -25,7 +25,7 @@ export default function OrderConfirmation() {
   if (isLoading) {
     return (
       <div className="flex flex-col justify-center items-center h-screen">
-        <Loader className="mr-2 h-16 w-16 animate-spin" />
+        <Loader className="mr-2 h-16 w-16 animate-spin" title="loader" />
       </div>
     );
   }
