@@ -19,3 +19,7 @@ export const toppings = [
     imagePath: "/images/hot-fudge.png",
   },
 ];
+
+export const orderNumberResp = {
+  orderNumber: 3645416342,
+};

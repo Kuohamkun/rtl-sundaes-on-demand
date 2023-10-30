@@ -5,9 +5,10 @@ import { formatCurrency } from "lib/utils";
 import { useOrderDetails } from "contexts/order-details/use-order-details";
 import { ChevronRight } from "lucide-react";
 import { Button } from "components/ui/button";
+import { OrderPhase } from "lib/constants";
 
 export default function OrderEntryPage() {
-  const { getPrice } = useOrderDetails();
+  const { getPrice, setOrderPhase } = useOrderDetails();
   const { total: grandTotal } = getPrice();
 
   return (
@@ -21,7 +22,12 @@ export default function OrderEntryPage() {
         <span>Grand Total:</span>
         <span className="text-cyan-500 ml-4">{formatCurrency(grandTotal)}</span>
       </h3>
-      <Button size="lg" className="my-4" disabled={grandTotal === 0}>
+      <Button
+        size="lg"
+        className="my-4"
+        disabled={grandTotal === 0}
+        onClick={() => setOrderPhase(OrderPhase.SUMMARY)}
+      >
         <ChevronRight className="mr-2 h-7 w-7" /> Order Your Sundae
       </Button>
     </div>

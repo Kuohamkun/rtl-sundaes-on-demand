@@ -3,10 +3,12 @@ import { RotateCcw } from "lucide-react";
 import { Button } from "components/ui/button";
 import { API_URL } from "lib/constants";
 import { Loader2 as Loader } from "lucide-react";
+import { useOrderDetails } from "contexts/order-details/use-order-details";
 
 export default function OrderConfirmation() {
   const [isLoading, setIsLoading] = useState(true);
   const [orderNumber, setOrderNumber] = useState(null);
+  const { resetOrder } = useOrderDetails();
 
   useEffect(() => {
     fetch(`${API_URL}/order`, {
@@ -41,7 +43,7 @@ export default function OrderConfirmation() {
 
       <p>As per our terms and conditions, nothing will happen now</p>
 
-      <Button size="lg" className="my-4 w-fit">
+      <Button size="lg" className="my-4 w-fit" onClick={resetOrder}>
         <RotateCcw className="mr-2 h-7 w-7" /> Create New Order
       </Button>
     </div>

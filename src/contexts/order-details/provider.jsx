@@ -1,15 +1,11 @@
 import { createContext, useState, useMemo, useCallback } from "react";
-import { SCOOP_PRICE, TOPPING_PRICE } from "lib/constants";
+import { OrderPhase, SCOOP_PRICE, TOPPING_PRICE } from "lib/constants";
 
 const initialState = {
+  orderPhase: OrderPhase.ENTRY,
   order: {
     scoops: null,
     toppings: null,
-  },
-  price: {
-    scoops: 0,
-    toppings: 0,
-    total: 0,
   },
 };
 
@@ -17,7 +13,7 @@ export const OrderDetailsContext = createContext();
 
 export default function OrderDetailsProvider({ children }) {
   const [order, setOrder] = useState(initialState.order);
-  const [price, setPrice] = useState(initialState.price);
+  const [orderPhase, setOrderPhase] = useState(initialState.orderPhase);
 
   const updateScoopOrder = (itemName, itemCount) =>
     setOrder(({ toppings, scoops: prevScoops }) => ({
@@ -50,19 +46,20 @@ export default function OrderDetailsProvider({ children }) {
 
   const resetOrder = () => {
     setOrder(initialState.order);
-    setPrice(initialState.price);
+    setOrderPhase(OrderPhase.ENTRY);
   };
 
   const value = useMemo(
     () => ({
       order,
-      price,
+      orderPhase,
+      setOrderPhase,
       resetOrder,
       updateScoopOrder,
       updateToppingOrder,
       getPrice,
     }),
-    [getPrice, order, price]
+    [getPrice, order, orderPhase]
   );
 
   return (

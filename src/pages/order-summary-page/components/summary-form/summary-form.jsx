@@ -9,9 +9,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "components/ui/tooltip";
+import { useOrderDetails } from "contexts/order-details/use-order-details";
+import { OrderPhase } from "lib/constants";
 
 export default function SummaryForm() {
   const [isTermsChecked, setIsTermsChecked] = useState(false);
+  const { setOrderPhase } = useOrderDetails();
 
   return (
     <div>
@@ -49,7 +52,11 @@ export default function SummaryForm() {
           </TooltipProvider>
         </Label>
       </div>
-      <Button className="my-4" disabled={!isTermsChecked}>
+      <Button
+        className="my-4"
+        disabled={!isTermsChecked}
+        onClick={() => setOrderPhase(OrderPhase.CONFIRMATION)}
+      >
         <ChevronRight className="mr-2 h-4 w-4" /> Confirm order
       </Button>
     </div>
