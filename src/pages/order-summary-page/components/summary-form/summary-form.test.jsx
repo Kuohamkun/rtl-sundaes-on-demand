@@ -41,9 +41,5 @@ test("should show terms popup on hover", async () => {
 
   // un-hover
   await user.unhover(termsButton);
-
-  // Timeout omission may cause test failure. The element is still in the DOM after unhover.
-  setTimeout(() => {
-    expect(termsPopup).not.toBeInTheDocument();
-  }, 10);
+  expect(termsPopup).not.toBeVisible();
 });
